@@ -1,11 +1,24 @@
-.navbar{
-    background-color: #2F4550;
-    color: #2F4550;
-    
-    font-family: 'Roboto', sans-serif;
+html{
+  margin: 0;
+  padding: 0;
 }
-footer{   
-    background-color: #2F4550;
-    color: #ffffff;
-    
-    font-family: 'Roboto', sans-serif;}
+
+.navbar {
+  background-color: #2f4550;
+  color: #2f4550;
+  font-family: "Roboto", sans-serif;
+}
+
+footer {
+  background-color: #2f4550;
+  color: #ffffff;
+
+  font-family: "Roboto", sans-serif;
+}
+
+@media (max-width: 600px){
+    .imgError{
+        width: 300px;
+        height: 280px;
+    }
+}
