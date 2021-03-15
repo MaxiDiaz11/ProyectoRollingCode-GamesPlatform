@@ -14,6 +14,8 @@ footer {
   color: #ffffff;
 
   font-family: "Roboto", sans-serif;
+ 
+  bottom: 0; 
 }
 
 @media (max-width: 600px){
