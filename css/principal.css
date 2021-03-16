@@ -1,3 +1,4 @@
+
 html{
   margin: 0;
   padding: 0;
@@ -12,10 +13,14 @@ html{
 footer {
   background-color: #2f4550;
   color: #ffffff;
-
   font-family: "Roboto", sans-serif;
- 
-  bottom: 0; 
+  
+
+  
+}
+main{
+  min-height: 359px;
+  margin-bottom: auto;
 }
 
 @media (max-width: 600px){
