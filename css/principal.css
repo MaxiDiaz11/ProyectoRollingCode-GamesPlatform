@@ -28,4 +28,7 @@ main{
         width: 300px;
         height: 280px;
     }
+    main{
+      min-height: 579px;
+      }
 }
