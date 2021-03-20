@@ -11,8 +11,13 @@ btnAgregar.addEventListener("click", () => {
 });
 
 leerDatos();
-window.agregarProducto = function (event) {
-    event.preventDefault();
+// existeProducto=true significa que estoy editando un producto
+// existeProducto=false significa que agrego un nuevo funko
+let existeProducto = false;
+leerDatos();
+
+window.agregarProducto = function () {
+
     var isChecked = document.getElementById('checkPublicado').checked;
     if (isChecked) {
         isChecked = 'Publicado'
@@ -27,7 +32,6 @@ window.agregarProducto = function (event) {
         isChecked
     );
 
-    console.log(nuevoProducto);
     listaProducto.push(nuevoProducto);
     localStorage.setItem("listaProducto", JSON.stringify(listaProducto));
     Swal.fire("Producto creado", "", "success");
@@ -80,10 +84,9 @@ function dibujarDatos(_listaProducto) {
     }
 }
 window.eliminarProducto = function (producto) {
-    console.log('prueba', producto.id)
 
     Swal.fire({
-        title: '¿Estas seguro de eliminar el funkopop seleccionado?',
+        title: '¿Estas seguro de eliminar el producto seleccionado?',
         text: "No puede volver atras esta accion",
         icon: 'warning',
         showCancelButton: true,
@@ -93,27 +96,108 @@ window.eliminarProducto = function (producto) {
         cancelButtonText: 'cancelar'
     }).then((result) => {
         if (result.isConfirmed) {
-            // aqui borrar el producto
-            let productoFiltrados = listaProducto.filter((producto) => {
+            // borrar el producto
+            // se utiliza el nombre productoAux porque producto ya esta siendo utilizado        
+            let productoFiltrados = listaProducto.filter((productoAux) => {
 
-                return producto.codigo != producto.id;
-
+                return productoAux.codigo != producto.id;
             })
-            console.log(productoFiltrados);
-            // pasamos los funko filtrados al arreglo principal
+            // pasamos los productos filtrados al arreglo principal
             listaProducto = productoFiltrados;
             // guardar en localstorage
-
             localStorage.setItem('listaProducto', JSON.stringify(listaProducto));
             // volver a dibujar la tabla
             leerDatos();
-            // console.log(funkopopFiltrados)
-
             Swal.fire(
-                'Funkopop eliminado',
-                'El funkopop seleccionado fue eliminado del sistema',
+                'Producto eliminado',
+                'El producto seleccionado fue eliminado del sistema',
                 'success'
             )
         }
     })
+}
+// esta funcion carga los datos del producto seleccionado
+window.modificarProducto = function (btnEditar) {
+    //console.log(btnEditar.id);
+    // limpiar los datos de la ventana modal
+    limpiarFormulario();
+    // buscar el objeto a modificar
+    let objetoEncontrado = listaProducto.find((productoss) => {
+        return productoss.codigo === btnEditar.id;
+    });
+
+    //console.log(objetoEncontrado);
+    //cargar los datos en el formulario
+    document.getElementById('codigoProducto').value = objetoEncontrado.codigo;
+    document.getElementById('nombreProducto').value = objetoEncontrado.nombre;
+    document.getElementById('categoriaProducto').value = objetoEncontrado.categoria;
+    //console.log(objetoEncontrado.publicado);
+
+    var isChecked = objetoEncontrado.publicado;
+    if (isChecked == 'Publicado') {
+        document.getElementById('checkPublicado').checked = true;
+    } else {
+        isChecked = 'No publicado'
+        document.getElementById('checkPublicado').checked = false;
+    }
+
+
+    //cambiar el valor de la variable existeProducto 
+    existeProducto = true;
+    // mostrar la ventana modal
+    modalProducto.show();
+}
+
+window.guardarProducto = function (event) {
+    
+    event.preventDefault();
+    if (existeProducto === true) {
+        // en este caso quiero modificar
+        actualizarDatos();
+    } else {
+        // en este caso quiero agregar un funko nuevo
+        agregarProducto();
+    }
+}
+
+function actualizarDatos() {
+    // esta funcion guarda en LS con los datos modificados
+    console.log('modificar');
+    console.log(document.getElementById('codigoProducto').value);
+    let codigo = document.getElementById('codigoProducto').value;
+    let nombre = document.getElementById('nombreProducto').value;
+    let categoria = document.getElementById('categoriaProducto').value;
+
+   
+    let publicado = document.getElementById('checkPublicado').checked;
+    if (publicado==true) {
+        publicado='Publicado'
+    } else {
+        publicado='No publicado'
+    }
+    // buscar el objeto que quiero modificar y cambiar sus valores
+    for (let i in listaProducto) {
+        if (listaProducto[i].codigo === codigo) {
+            // encontre el producto que quiero editar
+            listaProducto[i].nombre = nombre;
+            listaProducto[i].categoria = categoria;
+            listaProducto[i].publicado = publicado;
+        }
+    }
+
+    // guardar el arreglo de productos en localstorage
+    localStorage.setItem('listaProducto', JSON.stringify(listaProducto))
+    // limpiar los datos del formulario
+    limpiarFormulario();
+    // cerrar ventana modal
+    modalProducto.hide();
+    // mostrar mensaje de modificacion exitosa
+    Swal.fire(
+        "Modificacion exitosa",
+        "Se actualizo correctamente su producto",
+        "success"
+    );
+    // leer localstorage y dibujar los datos actualizados en la tabla
+    leerDatos();
+
 }
