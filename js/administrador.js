@@ -28,7 +28,10 @@ window.agregarProducto = function () {
     let nuevoProducto = new producto(
         document.getElementById("codigoProducto").value,
         document.getElementById("nombreProducto").value,
+
         document.getElementById("categoriaProducto").value,
+        document.getElementById("descripcionProducto").value,
+        document.getElementById("imagenProducto").value,
         isChecked
     );
 
@@ -48,6 +51,11 @@ function limpiarFormulario() {
     nombreProducto.className = "form-control";
     let categoriaProducto = document.getElementById(`categoriaProducto`);
     categoriaProducto.className = "form-control";
+    let descripcionProducto = document.getElementById(`descripcionProducto`);
+    descripcionProducto.className = "form-control";
+    let imagenProducto = document.getElementById(`imagenProducto`);
+    imagenProducto.className = "form-control";
+
     //limpiar las clases de los input
 }
 function leerDatos() {
@@ -73,7 +81,8 @@ function dibujarDatos(_listaProducto) {
           <th scope="row">${_listaProducto[i].codigo}</th>
           <td>${_listaProducto[i].nombre}</td>
           <td>${_listaProducto[i].categoria}</td>
-          <td>${_listaProducto[i].publicado}</td>
+          <td>${_listaProducto[i].descripcion}</td>
+          <td>${_listaProducto[i].publicado}</td>       
           <td>
               <button class="btn btn-warning" onclick='modificarProducto(this)' id='${_listaProducto[i].codigo}'>Editar</button>
               <button class="btn btn-danger" onclick="eliminarProducto(this)" id='${_listaProducto[i].codigo}'>Borrar</button>
@@ -131,6 +140,8 @@ window.modificarProducto = function (btnEditar) {
     document.getElementById('codigoProducto').value = objetoEncontrado.codigo;
     document.getElementById('nombreProducto').value = objetoEncontrado.nombre;
     document.getElementById('categoriaProducto').value = objetoEncontrado.categoria;
+    document.getElementById('descripcionProducto').value = objetoEncontrado.descripcion;
+    document.getElementById('imagenProducto').value = objetoEncontrado.imagen;
     //console.log(objetoEncontrado.publicado);
 
     var isChecked = objetoEncontrado.publicado;
@@ -149,7 +160,7 @@ window.modificarProducto = function (btnEditar) {
 }
 
 window.guardarProducto = function (event) {
-    
+
     event.preventDefault();
     if (existeProducto === true) {
         // en este caso quiero modificar
@@ -168,12 +179,14 @@ function actualizarDatos() {
     let nombre = document.getElementById('nombreProducto').value;
     let categoria = document.getElementById('categoriaProducto').value;
 
-   
+    let descripcion = document.getElementById('descripcionProducto').value;
+    let imagen = document.getElementById('imagenProducto').value;
+
     let publicado = document.getElementById('checkPublicado').checked;
-    if (publicado==true) {
-        publicado='Publicado'
+    if (publicado == true) {
+        publicado = 'Publicado'
     } else {
-        publicado='No publicado'
+        publicado = 'No publicado'
     }
     // buscar el objeto que quiero modificar y cambiar sus valores
     for (let i in listaProducto) {
@@ -181,7 +194,11 @@ function actualizarDatos() {
             // encontre el producto que quiero editar
             listaProducto[i].nombre = nombre;
             listaProducto[i].categoria = categoria;
+            
+            listaProducto[i].descripcion = descripcion;
+            listaProducto[i].imagen = imagen;
             listaProducto[i].publicado = publicado;
+
         }
     }
 
