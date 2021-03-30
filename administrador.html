@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Games Platform</title>
+    <title>Administrador</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.15.5/dist/sweetalert2.all.min.js"></script>
@@ -35,7 +35,7 @@
                             <a class="nav-link" href="nosotros.html">Acerca de
                                 nosotros</a>
                             <a class="nav-link active text-light" href="administrador.html">Administrador</a>
-                            <a class="nav-link  text-end" href="inicioSesion.html">Ingresar</a>
+                            <a class="nav-link  text-end" href="/inicioSesion.html">Ingresar</a>
                         </div>
                     </div>
                 </div>
@@ -54,8 +54,7 @@
             <section class="row my-4">
 
                 <div class="text-end">
-                    <button class="btn btn-primary" 
-                        id='btnAgregar'>+ Agregar</button>
+                    <button class="btn btn-primary" id='btnAgregar'>+ Agregar</button>
                 </div>
             </section>
             <section class="table-responsive">
@@ -66,7 +65,7 @@
                             <th scope="col">Nombre</th>
                             <th scope="col">Categoria</th>
                             <th scope="col">Descripcion</th>
-<!--<th scope="col">Imagen</th> -->                            
+                            <!--<th scope="col">Imagen</th> -->
                             <th scope="col">Publicado</th>
                             <th scope="col">Opciones</th>
                         </tr>
@@ -97,7 +96,7 @@
                             <input type="text" placecholder='Ingrese el nombre del producto' id='nombreProducto'
                                 class="form-control" onblur="validarCampoRequerido(this)" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label">Categoria</label>
                             <input type="text" placecholder='Ingrese la categoria del producto' id='categoriaProducto'
@@ -113,7 +112,7 @@
                             <input type="text" placecholder='Ingrese descripcion del producto' id='imagenProducto'
                                 class="form-control">
                         </div>
-                        
+
                         <div class="mb-3">
                             <label class="form-label">Publicado</label>
                             <div class="form-check">
@@ -121,7 +120,8 @@
                             </div>
                         </div>
                         <button class="btn btn-primary" type="submit">Guardar</button>
-                        <button class="btn btn-danger" id="btnCerrar" data-bs-dismiss="modal" type="submit">Cerrar</button>
+                        <button class="btn btn-danger" id="btnCerrar" data-bs-dismiss="modal"
+                            type="submit">Cerrar</button>
                     </form>
                 </div>
             </div>

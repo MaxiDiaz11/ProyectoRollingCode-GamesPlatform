@@ -34,12 +34,14 @@ window.agregarProducto = function () {
         document.getElementById("imagenProducto").value,
         isChecked
     );
+    
 
     listaProducto.push(nuevoProducto);
     localStorage.setItem("listaProducto", JSON.stringify(listaProducto));
     Swal.fire("Producto creado", "", "success");
     limpiarFormulario();
     leerDatos();
+
 };
 function limpiarFormulario() {
     // document.getElementById('formProducto').reset();
